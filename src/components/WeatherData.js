@@ -1,5 +1,7 @@
 import React, {useContext} from 'react'
 
+import Moment from 'react-moment'
+
 import Context from '../Context'
 
 const WeatherData = () => {
@@ -8,6 +10,9 @@ const WeatherData = () => {
     const {weather, city, sunrise, sunset} = useContext(Context)
 
     const {temp, humidity, pressure} = weather
+
+const mom = <Moment format='HH:mm:ss'> {sunrise}</Moment>
+    
     return (
         <div className="weather-data">
             <p className="weather__tagline">Weather forecast for <span className="weather-data__city">{city}</span></p>
@@ -28,17 +33,22 @@ const WeatherData = () => {
             <div className="weather-data__box">
                 <span className="weather-data__property">
                     <p className="weather-data__title">Sunrise</p>
-                    <p className="weather-data__value">{sunrise}</p>
+                    <p className="weather-data__value"> <Moment unix format="HH:mm">{sunrise}</Moment></p>
                 </span>
 
-                <span className="weather-data__property">
+                <span className="weather-data__property"> 
                     <p className="weather-data__title">Sunset</p>
-                    <p className="weather-data__value">{sunset}</p>
-                </span>
+                    <p className="weather-data__value"> <Moment unix format="HH:mm">{sunset}</Moment></p>
 
+                   
+                    
+                </span>
+               
             </div>
             
         </div>
+
+        
 
     )
 }

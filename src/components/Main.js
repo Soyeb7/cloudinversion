@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import Context from '../Context'
 
+import Moment from 'react-moment'
+
 import Header from './Header'
 import Content from './Content'
 import WeatherSearch from './WeatherSearch'
@@ -55,6 +57,11 @@ const Main = () => {
         setError(null)
     }
 
+   
+    const unixTimestamp = {sunrise};
+    
+    console.log(unixTimestamp.sunrise)
+
     return (
         <div className='main'>
             <Header />
@@ -75,6 +82,7 @@ const Main = () => {
                 </Context.Provider>
                 <Footer />
             </Content>
+            
         </div>
     )
 }
