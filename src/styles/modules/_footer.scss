@@ -10,5 +10,7 @@
   @include respond(largePhone) {
     letter-spacing: 0;
     width: 90%;
+    font-size: small;
+    margin-bottom: -20px;
   }
 }
