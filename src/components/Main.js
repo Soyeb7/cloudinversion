@@ -103,17 +103,6 @@ const Main = () => {
     }
 
 
-
-    // Condition for Cloud Inversion
-    // Cold overnight, no wind and warm during the day. 
-    /* 
-    If temp above 15 degrees during the day. 
-    If temp below 10 degrees during the night
-    If no wind
-    Then chances of cloud inversion likely
-    
-    */
-
     return (
         <div className='main'>
             <Header />
