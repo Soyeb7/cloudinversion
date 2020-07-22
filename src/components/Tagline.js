@@ -3,7 +3,7 @@ import React from 'react'
 
 const Tagline = () => (
     <div className='tagline'> 
-        Enter the name of the City to get weather information
+        <p> Enter the name of a location to know if cloud inversion is likely:  </p>
     </div>
 )
 

@@ -14,6 +14,9 @@ const WeatherData = () => {
 const mom = <Moment format='HH:mm:ss'> {sunrise}</Moment>
     
     return (
+        <div> 
+
+        <h2> Current conditions</h2>
         <div className="weather-data">
             <p className="weather__tagline">Weather forecast for <span className="weather-data__city">{city}</span></p>
             <div className="weather-data__box">
@@ -30,7 +33,8 @@ const mom = <Moment format='HH:mm:ss'> {sunrise}</Moment>
                     <p className="weather-data__value">{pressure}</p>
                 </span>
             </div>
-            <div className="weather-data__box">
+
+            {/* <div className="weather-data__box">
                 <span className="weather-data__property">
                     <p className="weather-data__title">Sunrise</p>
                     <p className="weather-data__value"> <Moment unix format="HH:mm">{sunrise}</Moment></p>
@@ -39,16 +43,13 @@ const mom = <Moment format='HH:mm:ss'> {sunrise}</Moment>
                 <span className="weather-data__property"> 
                     <p className="weather-data__title">Sunset</p>
                     <p className="weather-data__value"> <Moment unix format="HH:mm">{sunset}</Moment></p>
-
-                   
-                    
                 </span>
                
-            </div>
+            </div> */}
             
         </div>
 
-        
+        </div>
 
     )
 }
