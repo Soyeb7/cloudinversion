@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9d4b050e6eb171ce03e877b8ff2911e1",
+    "revision": "039a4a4cf991465486f0fe3478b55c5c",
     "url": "/cloudinversion/index.html"
   },
   {
-    "revision": "d666245201beb1e50b5e",
+    "revision": "5cacd47b5ee4bb410765",
     "url": "/cloudinversion/static/css/2.4819d237.chunk.css"
   },
   {
-    "revision": "59cc03d9133012deea9d",
+    "revision": "aaecd588e2da16bdcfe1",
     "url": "/cloudinversion/static/css/main.91872ab2.chunk.css"
   },
   {
-    "revision": "d666245201beb1e50b5e",
-    "url": "/cloudinversion/static/js/2.401c886f.chunk.js"
+    "revision": "5cacd47b5ee4bb410765",
+    "url": "/cloudinversion/static/js/2.bf4a61d8.chunk.js"
   },
   {
     "revision": "0a572ad323474bafc6a871b6336141bd",
-    "url": "/cloudinversion/static/js/2.401c886f.chunk.js.LICENSE.txt"
+    "url": "/cloudinversion/static/js/2.bf4a61d8.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "59cc03d9133012deea9d",
-    "url": "/cloudinversion/static/js/main.029e3ef7.chunk.js"
+    "revision": "aaecd588e2da16bdcfe1",
+    "url": "/cloudinversion/static/js/main.54c88859.chunk.js"
   },
   {
     "revision": "84855db905429744fa01",
