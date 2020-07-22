@@ -57,16 +57,31 @@ const InversionLikelihood = () => {
 
         <div className="weather-data">
 
+<div className="weather-data__box">
 
-            <div className="weather-data__box">
 
-                <p> Current Temp is: {temp} </p>
-                <p> 3am Temp is: {nightTemp} </p>
-                <p> 3am Wind Speed is: {wind} </p>
-                <p> 3am Humidity is: {humidity} </p>
-                <p> 3am Clouds are: {clouds} </p>
 
-            </div>
+
+
+                <span className="weather-data__property">
+                    <p className="weather-data__title">3am Temp is:</p>
+                    <p className="weather-data__value">{nightTemp}</p>
+                </span>
+
+                <span className="weather-data__property">
+                    <p className="weather-data__title"> 3am Wind Speed is:</p>
+                    <p className="weather-data__value">{wind}</p>
+                </span>
+
+                <span className="weather-data__property">
+                    <p className="weather-data__title"> 3am Humidity is:</p>
+                    <p className="weather-data__value">{humidity}</p>
+                </span>
+
+
+
+                </div>
+
 
             <div className="weather-data__box">
                 {/* If 3am temp is less than 9 degrees, current search time temp is more than 14, wind speed is less than 2mph and clouds are clear sky or few clouds or scattered clouds*/}
@@ -75,10 +90,10 @@ const InversionLikelihood = () => {
                     || clouds === 'scattered clouds')
                     &&
 
-                    <p> There is a chance of an cloud inversion occuring </p>
+                    <p className='likely'> There is a good possibility of an Cloud Inversion occuring.  </p>
 
 
-                } <p> Unlikely you will get a cloud inversion</p>
+                } <p className='unlikely'> Chances of an Cloud Inversion are unlikely</p>
             </div>
         </div>
 
