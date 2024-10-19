@@ -1,41 +1,37 @@
-import React, { useContext } from 'react'
-
-
-import Context from '../Context'
+// OvernightInfo.js
+import React, { useContext } from 'react';
+import Context from '../Context';
 
 const OvernightInfo = () => {
-
-    const { nightTemp, wind, pressure, clouds } = useContext(Context)
-
-
+    const { nightTemp, wind, pressure, clouds, humidity } = useContext(Context);
 
     return (
-        <div>
-            <h2> Tonight </h2>
-
+        <div className="overnight-info">
+            <h2>Overnight Forecast</h2>
             <div className="weather-data__box">
-
-                <span className="weather-data__property">
-                    <p className="weather-data__title">Overnight Temp</p>
-                    <p className="weather-data__value">{nightTemp}</p>
-                </span>
-
-                <span className="weather-data__property">
+                <div className="weather-data__property">
+                    <p className="weather-data__title">Temperature</p>
+                    <p className="weather-data__value">{nightTemp} °C</p>
+                </div>
+                <div className="weather-data__property">
                     <p className="weather-data__title">Wind Speed</p>
-                    <p className="weather-data__value">{wind} mph </p>
-                </span>
-                <span className="weather-data__property">
-                    <p className="weather-data__title">Pressue</p>
-                    <p className="weather-data__value">{pressure} </p>
-                </span>
-                <span className="weather-data__property">
+                    <p className="weather-data__value">{wind} m/s</p>
+                </div>
+                <div className="weather-data__property">
+                    <p className="weather-data__title">Pressure</p>
+                    <p className="weather-data__value">{pressure} hPa</p>
+                </div>
+                <div className="weather-data__property">
                     <p className="weather-data__title">Conditions</p>
                     <p className="weather-data__value">{clouds}</p>
-                </span>
+                </div>
+                <div className="weather-data__property">
+                    <p className="weather-data__title">Humidity</p>
+                    <p className="weather-data__value">{humidity}%</p>
+                </div>
             </div>
         </div>
+    );
+};
 
-    )
-}
-
-export default OvernightInfo
+export default OvernightInfo;

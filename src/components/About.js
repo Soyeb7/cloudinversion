@@ -1,42 +1,21 @@
-import React, { useContext } from 'react'
+import React from 'react';
 
 const About = () => {
+  return (
+    <div className="weather-data">
+      <div className="weather-data__box">
+        <p>
+          This application calculates the likelihood of a cloud inversion by analyzing atmospheric
+          data, including temperature profiles and humidity at different altitudes. It considers:
+          <ul>
+            <li>Presence of a temperature inversion layer.</li>
+            <li>High relative humidity below the inversion layer.</li>
+            <li>Stable atmospheric conditions.</li>
+          </ul>
+        </p>
+      </div>
+    </div>
+  );
+};
 
-
-
-    return (
-
-        <div className="weather-data">
-
-
-
-            <div className="weather-data__box">
-
-                <p> The way this app calculates the likelihood of an cloud inversion is if:
-
-                    
-                    <li>
-                        Temperature at 3am is less than 10 Degrees
-
-                    </li>
-                    <li>
-                        Wind speed is less than 2mph
-                    </li>
-                    <li>
-                        Humidity is greater than 85%
-                    </li>
-                    <li>
-                        The skies are either clear or few clouds present.
-                    </li>
-                </p>
-
-
-            </div>
-
-
-        </div>
-
-    )
-}
-
-export default About
+export default About;
