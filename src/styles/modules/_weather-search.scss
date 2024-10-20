@@ -10,37 +10,33 @@
     display: inline-block;
     border: solid 2px transparent;
     background-color: rgba($colour-2, 0.1);
-    padding: 0.5rem 3rem;
-    border-radius: 2px;
-    margin-right: 2rem;
-    padding-left: 1rem;
-    padding-right: 4rem;
+    padding: 0.8rem 1.5rem; /* Slightly adjust padding */
+    border-radius: 8px; /* Rounded corners */
+    margin-right: 1rem;
+    font-size: 1.6rem;
+    transition: border-color 0.3s ease-in-out; /* Add smooth transition */
 
     &:focus {
       outline: none;
-      border-bottom: solid 2px $colour-2;
+      border-color: $colour-2;
     }
   }
 
   &__submit {
-   display: inline-block;
-   text-align: center;
-   background-color: transparent;
-   font-size: 3rem;
-   height: 30px;
-   width: 30px;
-   position: relative;
-   top: 0.9rem;
-   margin-left: -6rem;
-  }
+    display: inline-block;
+    text-align: center;
+    background-color: $colour-2;
+    font-size: 2rem;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    
+    &:hover {
+      background-color: darken($colour-2, 10%);
+    }
 
-  &__button {
-    padding: 1.2rem;
-    color: $colour-2;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     &:focus {
       outline: none;
     }

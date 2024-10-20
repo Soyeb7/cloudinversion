@@ -1,5 +1,5 @@
 .main {
-  height: 75vh;
+  min-height: 85vh; /* Increased minimum height */
   box-shadow: 0px 13px 40px -13px rgba(0,0,0,0.75);
   width: 50%;
   margin: 0 auto;
@@ -9,16 +9,22 @@
   transform: translate(-50%, -50%);
   border-radius: 3px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column; /* Column layout for content and footer */
+  justify-content: space-between; /* Ensure content and footer don't overlap */
   @include respond(largeTablet) {
-    height: 50vh;
+    height: auto;
+    min-height: 60vh; /* Make sure there's enough space */
     width: 80%;
   }
   @include respond(tablet) {
-    height: 50vh;
+    height: auto;
+    min-height: 75vh;
     width: 95%;
   }
   @include respond(largePhone) {
-    height: 90vh;
+    height: auto;
+    min-height: 90vh;
     width: 95%;
   }
 }

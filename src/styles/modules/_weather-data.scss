@@ -4,14 +4,20 @@
 
   &__city {
     color: $colour-2;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
   }
 
   &__box {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     margin-top: 3rem;
+    gap: 2rem;
     @include respond(tablet) {
+      flex-direction: column;  /* Stack items vertically on smaller screens */
       margin-top: 2rem;
     }
     @include respond(largePhone) {
@@ -22,23 +28,55 @@
   &__property {
     margin: 0 3rem;
     @include respond(smallPhone) {
-      margin: 0 2rem;
+      margin: 0 1.5rem;
     }
   }
 
   &__title {
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+    color: $main-black;
   }
 
   &__value {
     color: $colour-2;
-    font-size: 3rem;
-    line-height: 0.6;
+    font-size: 3.5rem;
+    font-weight: bold;
+    line-height: 1;
     @include respond(smallPhone) {
-      font-size: 3rem;
+      font-size: 2.5rem;
     }
+  }
+
+  .likelihood-message {
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    margin-top: 2rem;
+    color: black;
+    text-align: center;
+    position: relative; /* Keep this message positioned within the container */
+    @include respond(largePhone) {
+      font-size: 1.8rem;
+    }
+  }
+
+  .likely {
+    background-color: #4CAF50; /* Green for "likely" */
+  }
+
+  .unlikely {
+    background-color: #F44336; /* Red for "unlikely" */
+  }
+
+  &__divider {
+    height: 1px;
+    width: 100%;
+    background-color: $colour-2;
+    margin: 2rem 0;
   }
 }

@@ -22,13 +22,17 @@ const InversionLikelihood = () => {
 
   // Assess likelihood
   let likelihoodMessage = '';
+  let likelihoodClass = '';
 
   if (isInversion && relativeHumidity > 80 && windSpeed < 3 && surfaceTemp <= dewPoint + 2) {
     likelihoodMessage = 'High likelihood of a cloud inversion occurring due to strong temperature inversion, high humidity, and low wind speeds.';
+    likelihoodClass = 'likely'; // Apply "likely" class
   } else if (isInversion) {
     likelihoodMessage = 'Possible inversion, but conditions may not be ideal for cloud formation due to low humidity or high wind speeds.';
+    likelihoodClass = 'likely'; // Apply "likely" class but with a less certain message
   } else {
     likelihoodMessage = 'Low likelihood of a cloud inversion occurring.';
+    likelihoodClass = 'unlikely'; // Apply "unlikely" class
   }
 
   return (
@@ -42,11 +46,10 @@ const InversionLikelihood = () => {
         <p><strong>Dew Point at Surface:</strong> {dewPoint} °C</p>
         <p><strong>Wind Speed:</strong> {windSpeed} m/s</p>
       </div>
-      <div className="weather-data__box">
-        <p className="likelihood-message">{likelihoodMessage}</p>
+      <div className={`weather-data__box likelihood-message ${likelihoodClass}`}>
+        <p>{likelihoodMessage}</p>
       </div>
     </div>
   );
 };
-
 export default InversionLikelihood;
