@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7578a15f48045c3adf48e055bcb6e289",
+    "revision": "5b34ffabb0cc39e774997c376db3156a",
     "url": "/cloudinversion/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/cloudinversion/static/css/2.4819d237.chunk.css"
   },
   {
-    "revision": "041eb3395600acd77d0d",
-    "url": "/cloudinversion/static/css/main.f2f87d62.chunk.css"
+    "revision": "190a4df43c0cbc452695",
+    "url": "/cloudinversion/static/css/main.d9a01c46.chunk.css"
   },
   {
     "revision": "eb0ad6ae8377ee56d380",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/cloudinversion/static/js/2.108d9575.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "041eb3395600acd77d0d",
-    "url": "/cloudinversion/static/js/main.ccd5ee07.chunk.js"
+    "revision": "190a4df43c0cbc452695",
+    "url": "/cloudinversion/static/js/main.a013c786.chunk.js"
   },
   {
     "revision": "84855db905429744fa01",
