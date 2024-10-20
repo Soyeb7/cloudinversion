@@ -3,17 +3,6 @@ import Header from './Header';
 import Footer from './Footer'; 
 import DateTime from './DateTime';
 const IdealConditions = () => {
-  // Add state for the current date and time
-  const [currentDateTime, setCurrentDateTime] = useState(new Date());
-
-  // Update current date and time every second
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentDateTime(new Date());
-    }, 1000);
-    return () => clearInterval(interval); // Cleanup the interval on component unmount
-  }, []);
-
   return (
     <div className="main">
       <Header />
