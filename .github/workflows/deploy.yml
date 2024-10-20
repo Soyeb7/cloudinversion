@@ -6,25 +6,32 @@ on:
       - master
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      # Step 1: Checkout the code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      # Step 2: Set up Node.js environment (v18 in this case)
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: npm install
 
-      - name: Build
-        run: npm run build
+      # Step 4: Build the app with the OpenSSL legacy provider
+      - name: Build the app
+        run: |
+          NODE_OPTIONS=--openssl-legacy-provider npm run build
 
-      - name: Deploy
-        run: npm run deploy
-
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Step 5: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
