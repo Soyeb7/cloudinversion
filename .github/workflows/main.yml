@@ -3,20 +3,24 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - master
+      - master  # or the default branch you're using
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout the repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Use Node.js LTS version
+          node-version: '18'
+
+      - name: Set NODE_OPTIONS to use OpenSSL legacy provider
+        run: |
+          echo "NODE_OPTIONS=--openssl-legacy-provider" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: npm install
