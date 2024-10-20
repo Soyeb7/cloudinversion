@@ -54,14 +54,20 @@
   .likelihood-message {
     font-size: 2rem;
     font-weight: bold;
-    padding: 1rem 2rem;
+    padding: 1.5rem 3rem; /* Adjust padding for a better look on desktop */
     border-radius: 12px;
     margin-top: 2rem;
-    color: black;
+    margin-bottom: 1.5rem;
+    color: #fff;
     text-align: center;
-    position: relative; /* Keep this message positioned within the container */
-    @include respond(largePhone) {
+    width: 100%; /* Ensure it spans the full width */
+    @include respond(largeTablet) {
       font-size: 1.8rem;
+      padding: 1.2rem 2.5rem;
+    }
+    @include respond(largePhone) {
+      font-size: 1.6rem;
+      padding: 1rem 2rem;
     }
   }
 

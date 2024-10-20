@@ -1,12 +1,13 @@
 .footer {
-  position: relative; /* Changed from absolute to relative */
+  position: relative; /* Stay within the main container */
   text-align: center;
   padding: 1rem 0;
   border-top: solid 2px rgba($colour-1, 0.3);
   letter-spacing: 0.3px;
-  font-size: 1rem; /* Adjust font size for better visibility */
+  font-size: 1rem; /* Keep font size balanced */
   color: $colour-2;
-  margin-top: auto; /* Ensure it stays at the bottom */
+  margin-top: auto;
+  width: 100%; /* Ensure it spans the full width */
   @include respond(largePhone) {
     letter-spacing: 0;
     width: 90%;
