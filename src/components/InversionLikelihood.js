@@ -13,21 +13,20 @@ const InversionLikelihood = () => {
     return weatherData.hourly[`temperature_${level}`][0];
   });
 
-  // Check for temperature inversion
-  const isInversion = tempsAtLevels.some((temp, index) => {
-    return temp > surfaceTemp;
-  });
-
-  // Check relative humidity at surface
   const relativeHumidity = weatherData.hourly.relativehumidity_2m[0];
+  const dewPoint = weatherData.hourly.dewpoint_2m[0];
+  const windSpeed = weatherData.hourly.windspeed_10m[0];
 
-  // Assess inversion likelihood
+  // Check for temperature inversion
+  const isInversion = tempsAtLevels.some(temp => temp > surfaceTemp);
+
+  // Assess likelihood
   let likelihoodMessage = '';
 
-  if (isInversion && relativeHumidity > 80) {
-    likelihoodMessage = 'High likelihood of a cloud inversion occurring.';
+  if (isInversion && relativeHumidity > 80 && windSpeed < 3 && surfaceTemp <= dewPoint + 2) {
+    likelihoodMessage = 'High likelihood of a cloud inversion occurring due to strong temperature inversion, high humidity, and low wind speeds.';
   } else if (isInversion) {
-    likelihoodMessage = 'Possible inversion, but low humidity reduces cloud formation likelihood.';
+    likelihoodMessage = 'Possible inversion, but conditions may not be ideal for cloud formation due to low humidity or high wind speeds.';
   } else {
     likelihoodMessage = 'Low likelihood of a cloud inversion occurring.';
   }
@@ -36,18 +35,12 @@ const InversionLikelihood = () => {
     <div className="weather-data">
       <h2>Inversion Analysis for {city}</h2>
       <div className="weather-data__box">
-        <p>
-          <strong>Surface Temperature:</strong> {surfaceTemp} °C
-        </p>
-        <p>
-          <strong>Temperature at 850 hPa:</strong> {tempsAtLevels[0]} °C
-        </p>
-        <p>
-          <strong>Temperature at 700 hPa:</strong> {tempsAtLevels[1]} °C
-        </p>
-        <p>
-          <strong>Relative Humidity at Surface:</strong> {relativeHumidity}%
-        </p>
+        <p><strong>Surface Temperature:</strong> {surfaceTemp} °C</p>
+        <p><strong>Temperature at 850 hPa:</strong> {tempsAtLevels[0]} °C</p>
+        <p><strong>Temperature at 700 hPa:</strong> {tempsAtLevels[1]} °C</p>
+        <p><strong>Relative Humidity at Surface:</strong> {relativeHumidity}%</p>
+        <p><strong>Dew Point at Surface:</strong> {dewPoint} °C</p>
+        <p><strong>Wind Speed:</strong> {windSpeed} m/s</p>
       </div>
       <div className="weather-data__box">
         <p className="likelihood-message">{likelihoodMessage}</p>

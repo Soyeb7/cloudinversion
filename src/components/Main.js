@@ -44,9 +44,9 @@ const Main = () => {
       const { latitude, longitude, name } = geoResponse.data.results[0];
       setCity(name);
 
-      // Fetch atmospheric data
+      // Fetch atmospheric data including dew point and wind speed
       const meteoResponse = await axios.get(
-        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,relativehumidity_2m,pressure_msl,temperature_850hPa,temperature_700hPa&start=current&current_weather=true`
+        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,relativehumidity_2m,pressure_msl,temperature_850hPa,temperature_700hPa,dewpoint_2m,windspeed_10m&start=current&current_weather=true`
       );
 
       setWeatherData(meteoResponse.data);
