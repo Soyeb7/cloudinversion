@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Context from '../Context';
+import ReactGA from 'react-ga4';
 
 import Header from './Header';
 import Content from './Content';
@@ -30,6 +31,12 @@ const Main = () => {
     }
 
     try {
+      // Track search event with Google Analytics
+      ReactGA.event({
+        category: 'Search',
+        action: `Location searched: ${location}`,
+      });
+
       // Geocoding API to get latitude and longitude
       const geoResponse = await axios.get(
         `https://geocoding-api.open-meteo.com/v1/search?name=${location}`
@@ -51,11 +58,32 @@ const Main = () => {
 
       setWeatherData(meteoResponse.data);
       setError(null);
+
+      // Track inversion result with Google Analytics based on likelihood
+      const likelihood = calculateInversionLikelihood(meteoResponse.data);
+      ReactGA.event({
+        category: 'Inversion Result',
+        action: `Location: ${name} - Likelihood: ${likelihood}`,
+      });
+      
     } catch (err) {
       console.error(err);
       setError('An error occurred while fetching data');
       setWeatherData(null);
     }
+  };
+
+  // Simple function to determine inversion likelihood (mock logic)
+  const calculateInversionLikelihood = (data) => {
+    const surfaceTemp = data.current_weather.temperature;
+    const higherAltitudeTemp = data.hourly.temperature_850hPa[0];
+    const humidity = data.hourly.relativehumidity_2m[0];
+
+    // Example condition: if the temperature at 850hPa is higher than surface, and humidity is high
+    if (higherAltitudeTemp > surfaceTemp && humidity > 80) {
+      return 'High';
+    }
+    return 'Low';
   };
 
   return (
