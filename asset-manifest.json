@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/cloudinversion/static/css/main.d6700422.chunk.css",
-    "main.js": "/cloudinversion/static/js/main.070649ab.chunk.js",
-    "main.js.map": "/cloudinversion/static/js/main.070649ab.chunk.js.map",
+    "main.css": "/cloudinversion/static/css/main.bdd2e66d.chunk.css",
+    "main.js": "/cloudinversion/static/js/main.f2e63d3c.chunk.js",
+    "main.js.map": "/cloudinversion/static/js/main.f2e63d3c.chunk.js.map",
     "runtime-main.js": "/cloudinversion/static/js/runtime-main.f177dff1.js",
     "runtime-main.js.map": "/cloudinversion/static/js/runtime-main.f177dff1.js.map",
     "static/css/2.4819d237.chunk.css": "/cloudinversion/static/css/2.4819d237.chunk.css",
     "static/js/2.a9bd24b4.chunk.js": "/cloudinversion/static/js/2.a9bd24b4.chunk.js",
     "static/js/2.a9bd24b4.chunk.js.map": "/cloudinversion/static/js/2.a9bd24b4.chunk.js.map",
     "index.html": "/cloudinversion/index.html",
-    "precache-manifest.cd1127c9833d526f25a0664a657ed1e2.js": "/cloudinversion/precache-manifest.cd1127c9833d526f25a0664a657ed1e2.js",
+    "precache-manifest.15ceb273b4bf0d3b76ca926440743d1a.js": "/cloudinversion/precache-manifest.15ceb273b4bf0d3b76ca926440743d1a.js",
     "service-worker.js": "/cloudinversion/service-worker.js",
     "static/css/2.4819d237.chunk.css.map": "/cloudinversion/static/css/2.4819d237.chunk.css.map",
-    "static/css/main.d6700422.chunk.css.map": "/cloudinversion/static/css/main.d6700422.chunk.css.map",
+    "static/css/main.bdd2e66d.chunk.css.map": "/cloudinversion/static/css/main.bdd2e66d.chunk.css.map",
     "static/js/2.a9bd24b4.chunk.js.LICENSE.txt": "/cloudinversion/static/js/2.a9bd24b4.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.f177dff1.js",
     "static/css/2.4819d237.chunk.css",
     "static/js/2.a9bd24b4.chunk.js",
-    "static/css/main.d6700422.chunk.css",
-    "static/js/main.070649ab.chunk.js"
+    "static/css/main.bdd2e66d.chunk.css",
+    "static/js/main.f2e63d3c.chunk.js"
   ]
 }
