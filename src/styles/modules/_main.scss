@@ -1,16 +1,14 @@
 .main {
-  box-shadow: 0px 13px 40px -13px rgba(0,0,0,0.75);
+  min-height: 100vh;  // Use min-height to allow content to grow
+  box-shadow: 0px 13px 40px -13px rgba(0, 0, 0, 0.75);
   width: 50%;
   margin: 0 auto;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;  // Change absolute to relative
+  top: 0;
+  left: 0;
+  transform: none;  // Remove transform to ensure proper position
   border-radius: 3px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column; /* Column layout for content and footer */
-  justify-content: space-between; /* Ensure content and footer don't overlap */
+  overflow-y: auto;  // Enable vertical scrolling
   @include respond(largeTablet) {
     height: auto;
     width: 80%;

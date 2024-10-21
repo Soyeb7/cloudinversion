@@ -35,7 +35,7 @@ const AppContent = () => {
 
 // App component wrapping AppContent in the Router
 const App = () => (
-  <Router>
+  <Router basename="/cloudinversion">  {/* Set the basename here */}
     <AppContent />
   </Router>
 );

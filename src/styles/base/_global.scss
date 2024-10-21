@@ -12,13 +12,16 @@ html {
 }
 
 body {
-  font-weight: 400;
-  font-family: $main-font;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;  // Hide horizontal scroll
+  overflow-y: auto;  // Allow vertical scroll
+  font-family: 'Quicksand', sans-serif;
   font-size: 16px;
   line-height: 1.7;
   color: $text-1;
-  padding-bottom: 2rem;
   background-color: $colour-1;
+  min-height: 100vh;  // Ensure full viewport height
 }
 
 a:link, a:visited {
