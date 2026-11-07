@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://soyeb7.github.io/cloudinversion/sitemap.xml
