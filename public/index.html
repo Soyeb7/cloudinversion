@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cloud Inversion Checker</title>
-    <link rel="icon shortcut" href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/237/cloud-with-rain_1f327.png">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta
+      name="description"
+      content="Forecast the chance of a cloud inversion (a sea of cloud below you at sunrise) for any town, valley or hill, and how high you need to climb to be above it."
+    />
+    <meta name="theme-color" content="#34476B" />
+    <meta property="og:title" content="Cloud Inversion Checker" />
+    <meta property="og:description" content="Will you be above the clouds at sunrise? Inversion forecasts for the next few mornings, with estimated cloud-top heights." />
+    <link rel="icon" type="image/svg+xml" href="%PUBLIC_URL%/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&display=swap"
+    />
+    <link rel="preconnect" href="https://api.open-meteo.com" />
   </head>
   <body>
+    <noscript>Cloud Inversion Checker needs JavaScript to fetch forecasts.</noscript>
     <div id="root"></div>
   </body>
 </html>
