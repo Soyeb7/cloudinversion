@@ -6,9 +6,13 @@ import PlaceSearch from '../components/PlaceSearch';
 import Forecast from '../components/Forecast';
 import ForecastSkeleton from '../components/ForecastSkeleton';
 import HeroScene from '../components/HeroScene';
-import Starter from '../components/Starter';
-import { fetchElevation, fetchForecast } from '../lib/api';
-import { analyse } from '../lib/inversion';
+import Outlook from '../components/Outlook';
+import HowItWorks from '../components/HowItWorks';
+import RegionGrid from '../components/RegionGrid';
+import Faq from '../components/Faq';
+import ForecastError from '../components/ForecastError';
+import { fetchElevation } from '../lib/api';
+import useForecast from '../lib/useForecast';
 
 const placeFromParams = (params) => {
   const lat = parseFloat(params.get('lat'));
@@ -38,60 +42,23 @@ const paramsFromPlace = (p) => {
 const Home = () => {
   const [params, setParams] = useSearchParams();
   const place = useMemo(() => placeFromParams(params), [params]);
-  const [state, setState] = useState({ status: 'idle' });
+  const [attempt, setAttempt] = useState(0);
   const [locating, setLocating] = useState(false);
   const [locateError, setLocateError] = useState(null);
-  const [attempt, setAttempt] = useState(0);
   const resultRef = useRef(null);
-
+  const fc = useForecast(place, { attempt });
   const placeKey = place ? `${place.latitude},${place.longitude}` : '';
-  const elevation = place ? place.elevation : null;
-  const analysis = useMemo(
-    () => (state.status === 'ready' ? analyse(state.forecast, state.nowLocal, elevation) : null),
-    [state, elevation]
-  );
 
   useEffect(() => {
-    if (!place) {
-      setState({ status: 'idle' });
-      return undefined;
-    }
-    const ctrl = new AbortController();
-    setState({ status: 'loading' });
-
-    const load = async () => {
-      // Open-Meteo occasionally times out on a cold request; one retry fixes most.
-      let forecast;
-      try {
-        forecast = await fetchForecast(place, ctrl.signal);
-      } catch (e) {
-        if (e.name === 'AbortError') throw e;
-        forecast = await fetchForecast(place, ctrl.signal);
-      }
-      const offset = (forecast.utc_offset_seconds || 0) * 1000;
-      const nowLocal = new Date(Date.now() + offset).toISOString().slice(0, 16);
-      return { forecast, nowLocal };
-    };
-
-    load()
-      .then((res) => {
-        setState({ status: 'ready', ...res });
-        const first = analyse(res.forecast, res.nowLocal, place.elevation).mornings[0];
-        if (first) {
-          ReactGA.event({
-            category: 'Inversion Result',
-            action: `Location: ${place.name} - Likelihood: ${first.band.label}`,
-          });
-        }
-      })
-      .catch((e) => {
-        if (e.name === 'AbortError') return;
-        setState({ status: 'error', message: e.message });
+    if (fc.status === 'ready' && fc.analysis && fc.analysis.mornings[0]) {
+      ReactGA.event({
+        category: 'Inversion Result',
+        action: `Location: ${place.name} - Likelihood: ${fc.analysis.mornings[0].band.label}`,
       });
-    return () => ctrl.abort();
-  }, [placeKey, attempt]); // eslint-disable-line react-hooks/exhaustive-deps
+    }
+  }, [fc.status]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Fill in the spot height for shared links or geolocation that lack one.
+  // Fill in the spot height for shared links, map searches or geolocation.
   useEffect(() => {
     if (!place || place.elevation != null) return undefined;
     const ctrl = new AbortController();
@@ -110,7 +77,7 @@ const Home = () => {
     (p) => {
       ReactGA.event({ category: 'Search', action: `Location searched: ${p.name}` });
       setParams(paramsFromPlace(p));
-      setTimeout(() => resultRef.current && resultRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+      setTimeout(() => resultRef.current && resultRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
     },
     [setParams]
   );
@@ -139,42 +106,42 @@ const Home = () => {
     <>
       <section className="hero">
         <HeroScene />
-        <div className="hero__inner">
-          <h1 className="hero__title">Will you be above the clouds at sunrise?</h1>
-          <p className="hero__lead">
-            Check the chance of a cloud inversion over the next few mornings, and how high you’d need to climb to look
-            down on it.
-          </p>
-          <PlaceSearch
-            onSelect={selectPlace}
-            onLocate={locate}
-            locating={locating}
-            initialValue={place && place.name !== 'Your location' ? place.name : ''}
-          />
-          {locateError && (
-            <p className="hero__note" role="status">
-              {locateError}
+        <div className="container hero__grid">
+          <div className="hero__copy">
+            <h1 className="hero__title">Will there be a cloud inversion at sunrise?</h1>
+            <p className="hero__lead">
+              A free cloud inversion forecast for any town, valley or hill. See the chance of a sea of cloud over the
+              next five mornings, and how high you’d need to climb to stand above it.
             </p>
-          )}
+            <PlaceSearch
+              onSelect={selectPlace}
+              onLocate={locate}
+              locating={locating}
+              initialValue={place && place.name !== 'Your location' ? place.name : ''}
+            />
+            {locateError && (
+              <p className="hero__note" role="status">
+                {locateError}
+              </p>
+            )}
+          </div>
+          <Outlook />
         </div>
       </section>
 
-      <div className="page" ref={resultRef}>
-        {state.status === 'idle' && <Starter onPick={selectPlace} />}
-        {state.status === 'loading' && <ForecastSkeleton name={place && place.name} />}
-        {state.status === 'error' && (
-          <div className="notice" role="alert">
-            <h2>We couldn’t load the forecast for {place.name}</h2>
-            <p>The weather service didn’t respond ({state.message}). This is usually temporary.</p>
-            <button type="button" className="btn btn--primary" onClick={() => setAttempt((a) => a + 1)}>
-              Try again
-            </button>
-          </div>
+      <div className="container page" ref={resultRef}>
+        {fc.status === 'loading' && <ForecastSkeleton name={place && place.name} />}
+        {fc.status === 'error' && (
+          <ForecastError name={place.name} message={fc.message} onRetry={() => setAttempt((a) => a + 1)} />
         )}
-        {state.status === 'ready' && (
-          <Forecast place={place} forecast={state.forecast} analysis={analysis} nowLocal={state.nowLocal} />
+        {fc.status === 'ready' && (
+          <Forecast place={place} forecast={fc.forecast} analysis={fc.analysis} nowLocal={fc.nowLocal} />
         )}
       </div>
+
+      <HowItWorks />
+      <RegionGrid />
+      <Faq />
     </>
   );
 };

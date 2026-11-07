@@ -49,6 +49,11 @@ export const roughMetres = (m, step = 50) => metres(Math.round(m / step) * step)
 export const temp = (c) => `${c > -0.05 && c < 0 ? 0 : c.toFixed(1)}°C`;
 
 export const placeSubtitle = (p) =>
-  [p.admin1 && p.admin1 !== p.name ? p.admin1 : null, p.country, p.elevation != null ? metres(p.elevation) : null]
+  [
+    p.admin2 && p.admin2 !== p.name ? p.admin2 : null,
+    p.admin1 && p.admin1 !== p.name && p.admin1 !== p.admin2 ? p.admin1 : null,
+    p.country,
+    p.elevation != null ? metres(p.elevation) : null,
+  ]
     .filter(Boolean)
     .join(', ');

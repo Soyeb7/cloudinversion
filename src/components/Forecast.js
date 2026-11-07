@@ -12,7 +12,7 @@ const Meter = ({ score, band }) => (
   </div>
 );
 
-const Forecast = ({ place, forecast, analysis, nowLocal }) => {
+const Forecast = ({ place, forecast, analysis, nowLocal, title, subtitle, viewpoints }) => {
   const { mornings, ground } = analysis;
   const [sel, setSel] = useState(0);
   const isHill = HILL_CODES.includes(place.featureCode);
@@ -21,7 +21,7 @@ const Forecast = ({ place, forecast, analysis, nowLocal }) => {
   useEffect(() => {
     setSel(0);
     setVpInput(isHill && place.elevation != null ? String(Math.round(place.elevation)) : '');
-  }, [place.latitude, place.longitude]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [place.latitude, place.longitude, place.elevation]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!mornings.length) {
     return (
@@ -51,9 +51,9 @@ const Forecast = ({ place, forecast, analysis, nowLocal }) => {
   return (
     <article className="forecast" aria-labelledby="forecast-place">
       <header className="forecast__head">
-        <h2 id="forecast-place">{place.name}</h2>
+        <h2 id="forecast-place">{title || place.name}</h2>
         <p className="forecast__sub">
-          {placeSubtitle(place) || `${place.latitude.toFixed(3)}, ${place.longitude.toFixed(3)}`}
+          {subtitle || placeSubtitle(place) || `${place.latitude.toFixed(3)}, ${place.longitude.toFixed(3)}`}
         </p>
       </header>
 
@@ -134,6 +134,22 @@ const Forecast = ({ place, forecast, analysis, nowLocal }) => {
             <p id="viewpoint-verdict" className={`where__verdict${verdict ? ` where__verdict--${verdict.key}` : ''}`} aria-live="polite">
               {verdict ? verdict.text : 'Enter the height of the hill or viewpoint you’re planning to stand on.'}
             </p>
+            {viewpoints && viewpoints.length > 0 && (
+              <div className="vp-chips" role="group" aria-label="Pick a viewpoint">
+                {viewpoints.map((v) => (
+                  <button
+                    key={v.name}
+                    type="button"
+                    className={`vp-chip${String(v.height) === vpInput ? ' is-on' : ''}`}
+                    aria-pressed={String(v.height) === vpInput}
+                    onClick={() => setVpInput(String(v.height))}
+                  >
+                    {v.name}
+                    <span>{v.height} m</span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 

@@ -38,7 +38,8 @@ const wave = (x0, x1, y, amp, seed = 0) => {
   return d;
 };
 
-const ProfileDiagram = ({ morning, ground, viewpoint }) => {
+const ProfileDiagram = ({ morning, ground, viewpoint, idPrefix = 'fc' }) => {
+  const id = (name) => `${idPrefix}-${name}`;
   const wrapRef = useRef(null);
   const W = useWidth(wrapRef);
   const narrow = W < 520;
@@ -105,6 +106,9 @@ const ProfileDiagram = ({ morning, ground, viewpoint }) => {
 
   const cloudOpacity = { 'very-likely': 0.96, likely: 0.92, possible: 0.75, unlikely: 0.5 }[band.key];
   const yCloud = cloudTop ? y(cloudTop) : null;
+  // Keep the cloud-top label clear of the viewpoint label when they'd collide
+  const cloudLabelY =
+    yCloud != null && vp && Math.abs(yPeak - 6 - (yCloud - 8)) < 18 ? Math.min(yCloud + 20, yBottom - 6) : yCloud - 8;
   const sunY = Math.min(yCloud != null ? yCloud - 16 : yGround - 40, y(ground + (zMax - ground) * 0.35));
 
   const summary = [
@@ -117,23 +121,23 @@ const ProfileDiagram = ({ morning, ground, viewpoint }) => {
 
   return (
     <figure className="diagram" ref={wrapRef}>
-      <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} role="img" aria-labelledby="diagram-title diagram-desc">
-        <title id="diagram-title">Cross-section of the atmosphere at dawn</title>
-        <desc id="diagram-desc">{summary}</desc>
+      <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} role="img" aria-labelledby={`${id('title')} ${id('desc')}`}>
+        <title id={id('title')}>Cross-section of the atmosphere at dawn</title>
+        <desc id={id('desc')}>{summary}</desc>
         <defs>
-          <linearGradient id="dg-sky" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id={id('sky')} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" className="dg-sky-0" />
             <stop offset="0.6" className="dg-sky-1" />
             <stop offset="1" className="dg-sky-2" />
           </linearGradient>
-          <radialGradient id="dg-sun">
+          <radialGradient id={id('sun')}>
             <stop offset="0" className="dg-sun-0" />
             <stop offset="1" className="dg-sun-1" />
           </radialGradient>
-          <clipPath id="dg-scene">
+          <clipPath id={id('scene')}>
             <rect x={sx0} y={pad.top} width={sceneW} height={innerH} rx="10" />
           </clipPath>
-          <clipPath id="dg-panel">
+          <clipPath id={id('panel')}>
             <rect x={px0} y={pad.top} width={px1 - px0} height={innerH} rx="10" />
           </clipPath>
         </defs>
@@ -149,9 +153,9 @@ const ProfileDiagram = ({ morning, ground, viewpoint }) => {
           </g>
         ))}
 
-        <g clipPath="url(#dg-scene)">
-          <rect x={sx0} y={pad.top} width={sceneW} height={innerH} fill="url(#dg-sky)" />
-          <circle cx={sx0 + sceneW * 0.56} cy={sunY} r={narrow ? 34 : 46} fill="url(#dg-sun)" />
+        <g clipPath={`url(#${id('scene')})`}>
+          <rect x={sx0} y={pad.top} width={sceneW} height={innerH} fill={`url(#${id('sky')})`} />
+          <circle cx={sx0 + sceneW * 0.56} cy={sunY} r={narrow ? 34 : 46} fill={`url(#${id('sun')})`} />
           <circle cx={sx0 + sceneW * 0.56} cy={sunY} r={narrow ? 9 : 12} className="dg-sun-disc" />
           <path d={far} className="dg-far" />
           {lid && (
@@ -180,7 +184,7 @@ const ProfileDiagram = ({ morning, ground, viewpoint }) => {
 
         {/* scene labels, drawn outside the clip so they never get cut */}
         {yCloud != null && (
-          <text x={sx1 - 8} y={yCloud - 8} textAnchor="end" className="dg-label dg-label--cloud">
+          <text x={sx1 - 8} y={cloudLabelY} textAnchor="end" className="dg-label dg-label--cloud">
             Cloud tops ~{roughMetres(cloudTop)}
           </text>
         )}
@@ -200,7 +204,7 @@ const ProfileDiagram = ({ morning, ground, viewpoint }) => {
 
         {/* temperature panel */}
         <rect x={px0} y={pad.top} width={px1 - px0} height={innerH} rx="10" className="dg-panel" />
-        <g clipPath="url(#dg-panel)">
+        <g clipPath={`url(#${id('panel')})`}>
           {lid && (
             <rect
               x={px0}

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import HeroScene from '../components/HeroScene';
+import Faq from '../components/Faq';
 
 const Source = ({ href, children }) => (
   <li>
@@ -9,10 +11,42 @@ const Source = ({ href, children }) => (
   </li>
 );
 
+const TOC = [
+  ['ingredients', 'The three ingredients'],
+  ['conditions', 'Ideal conditions'],
+  ['types', 'Two kinds of cloud sea'],
+  ['height', 'How high to climb'],
+  ['method', 'How this forecast works'],
+  ['limits', 'Limits'],
+  ['sources', 'Sources'],
+];
+
 const Science = () => (
-  <div className="page page--prose">
+  <>
+    <section className="hero hero--compact">
+      <HeroScene compact />
+      <div className="container">
+        <nav className="crumbs" aria-label="Breadcrumb">
+          <Link to="/">Cloud Inversion Checker</Link>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">Guide</span>
+        </nav>
+        <h1 className="hero__title hero__title--page">What is a cloud inversion?</h1>
+        <p className="hero__lead">How a sea of cloud forms, when to look for one, and how high you need to climb to see it.</p>
+      </div>
+    </section>
+  <div className="container page guide">
+    <nav className="toc" aria-label="On this page">
+      <p className="toc__title">On this page</p>
+      <ol>
+        {TOC.map(([id, label]) => (
+          <li key={id}>
+            <a href={`#${id}`}>{label}</a>
+          </li>
+        ))}
+      </ol>
+    </nav>
     <article className="prose">
-      <h1>How cloud inversions form</h1>
       <p className="prose__lead">
         Normally the air gets colder as you climb, by roughly 6 to 7°C for every kilometre. A temperature inversion is
         a layer where that flips and the air gets <em>warmer</em> with height. Warm air sits on top of cold air like a
@@ -20,7 +54,7 @@ const Science = () => (
         and from a summit above it you look down on a flat, white sea.
       </p>
 
-      <h2>The three ingredients</h2>
+      <h2 id="ingredients">The three ingredients</h2>
       <p>Every cloud inversion needs all three at the same time. Two out of three gives you something else.</p>
       <dl className="prose__defs">
         <div>
@@ -46,7 +80,7 @@ const Science = () => (
         </div>
       </dl>
 
-      <h2>What helps</h2>
+      <h2 id="conditions">Ideal conditions for a cloud inversion</h2>
       <table className="prose__table">
         <thead>
           <tr>
@@ -84,7 +118,7 @@ const Science = () => (
         </tbody>
       </table>
 
-      <h2>Two kinds of cloud sea</h2>
+      <h2 id="types">Two kinds of cloud sea</h2>
       <h3>Valley fog</h3>
       <p>
         On a clear, calm night the ground radiates heat away. Cold air drains down the slopes and pools on the valley
@@ -102,7 +136,7 @@ const Science = () => (
         system brings colder air or stronger winds aloft.
       </p>
 
-      <h2>How high do you need to be?</h2>
+      <h2 id="height">How high do you need to be?</h2>
       <p>
         You need to stand above the top of the cloud. Under an elevated lid the cloud top sits at about the base of the
         warm layer; with valley fog it sits inside the cold pool. Cloud tops undulate and tend to rise as the morning
@@ -110,14 +144,14 @@ const Science = () => (
         you’ll be standing inside the fog.
       </p>
 
-      <h2>How this forecast works</h2>
+      <h2 id="method">How this forecast works</h2>
       <ol className="prose__steps">
         <li>
           We fetch hourly forecasts from Open-Meteo, including temperature, humidity, wind and cloud at eight pressure
           levels from near the ground up to about 3 km, each with its real height.
         </li>
         <li>
-          For each hour from two hours before to two hours after sunrise we build a temperature profile from the model’s
+          For each hour from about an hour before to two hours after sunrise we build a temperature profile from the model’s
           ground level upwards, ignoring levels that sit below the ground.
         </li>
         <li>
@@ -141,7 +175,7 @@ const Science = () => (
         probability: it hasn’t been calibrated against a long record of observed inversions.
       </p>
 
-      <h2>Limits</h2>
+      <h2 id="limits">Limits</h2>
       <ul>
         <li>
           Weather models smooth the terrain over a few kilometres, so deep, narrow valleys are shallower in the model
@@ -155,7 +189,7 @@ const Science = () => (
         <li>Accuracy drops quickly beyond a day or two. Check again the evening before.</li>
       </ul>
 
-      <h2>Sources</h2>
+      <h2 id="sources">Sources</h2>
       <ul className="prose__sources">
         <Source href="https://home.chpc.utah.edu/~whiteman/homepage/articles/Whiteman2001Weather%20and%20Forecasting.pdf">
           Whiteman et al. (2001), Cold pools in the Columbia Basin, Weather and Forecasting
@@ -184,11 +218,13 @@ const Science = () => (
 
       <p className="prose__back">
         <Link to="/" className="btn btn--primary">
-          Check a forecast
+          Check a cloud inversion forecast
         </Link>
       </p>
     </article>
   </div>
+  <Faq />
+  </>
 );
 
 export default Science;

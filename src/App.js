@@ -4,12 +4,17 @@ import ReactGA from 'react-ga4';
 
 import Masthead from './components/Masthead';
 import Footer from './components/Footer';
+import Seo from './components/Seo';
 import Home from './pages/Home';
 import Science from './pages/Science';
+import Region from './pages/Region';
 
 const TRACKING_ID = 'G-6Y949CPMQT';
+export const BASENAME = '/cloudinversion';
 
-const AppContent = () => {
+// Routes and page chrome, shared by the browser app and the build-time
+// prerender (which wraps it in a StaticRouter instead).
+export const AppRoutes = () => {
   const location = useLocation();
 
   useEffect(() => {
@@ -26,12 +31,15 @@ const AppContent = () => {
       <a className="skip-link" href="#main">
         Skip to content
       </a>
+      <Seo />
       <Masthead />
       <main id="main">
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* Kept at its original path so existing links keep working */}
+          <Route path="/what-is-a-cloud-inversion" element={<Science />} />
+          {/* Original URL of the explainer, kept so existing links work */}
           <Route path="/ideal-conditions" element={<Science />} />
+          <Route path="/cloud-inversion-forecast/:slug" element={<Region />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </main>
@@ -41,8 +49,8 @@ const AppContent = () => {
 };
 
 const App = () => (
-  <Router basename="/cloudinversion">
-    <AppContent />
+  <Router basename={BASENAME}>
+    <AppRoutes />
   </Router>
 );
 

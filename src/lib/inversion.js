@@ -145,18 +145,24 @@ function assessHour(h, i, ground) {
   if (inv) sLid = 0.25 + 0.75 * ramp(inv.strength, 0.2, 3);
   else if (stable) sLid = 0.1 + 0.15 * ramp(2.5 - stable.lapseKm, 0, 2.5);
 
-  // 2. Cloud or fog beneath the lid (0..1). Needs real evidence of saturation:
-  // model low cloud, near-100% humidity, a tiny dew-point spread or fog-level
-  // visibility. A dry cold pool (clear frosty valley) scores low here.
+  // 2. Cloud or fog beneath the lid (0..1). Needs real evidence of saturation
+  // below the lid: near-100% humidity, model cloud at those levels, a tiny
+  // dew-point spread or fog-level visibility. A dry cold pool (clear frosty
+  // valley) scores low here. Model "low cloud" covers everything up to ~2 km,
+  // so it only counts fully when the layers under the lid are moist too;
+  // otherwise that cloud may be sitting on the hills above the lid (hill fog).
   const cloud = cloudLayer(pts, lid);
-  const underIdx = lid ? lid.baseIdx : 0;
-  const belowRh = Math.max(...pts.slice(0, underIdx + 1).map((p) => p.rh || 0));
+  const under = pts.slice(0, (lid ? lid.baseIdx : 0) + 1);
+  const belowRh = Math.max(...under.map((p) => p.rh || 0));
+  const belowCloud = Math.max(0, ...under.map((p) => (p.cloud == null ? 0 : p.cloud)));
   const spread = surface.t - h.dew_point_2m[i];
   const lowCloud = h.cloud_cover_low[i] || 0;
+  const lowCloudUnder = belowRh >= 85 || belowCloud >= 50 ? lowCloud : lowCloud * 0.4;
   const vis = h.visibility ? h.visibility[i] : null;
   const sMoist = clamp(
     Math.max(
-      ramp(lowCloud, 25, 85),
+      ramp(lowCloudUnder, 25, 85),
+      ramp(belowCloud, 30, 80),
       ramp(belowRh, 90, 99),
       num(spread) ? 0.85 * ramp(spread, 2, 0.3) : 0,
       num(vis) ? ramp(vis, 5000, 1000) : 0,
