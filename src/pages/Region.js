@@ -5,6 +5,7 @@ import ForecastSkeleton from '../components/ForecastSkeleton';
 import ForecastError from '../components/ForecastError';
 import HeroScene from '../components/HeroScene';
 import RegionGrid from '../components/RegionGrid';
+import SafetyNote from '../components/SafetyNote';
 import Home from './Home';
 import { regionBySlug } from '../data/regions';
 import useForecast from '../lib/useForecast';
@@ -66,6 +67,7 @@ const Region = () => {
                 ))}
               </tbody>
             </table>
+            <SafetyNote compact />
           </div>
         </div>
 

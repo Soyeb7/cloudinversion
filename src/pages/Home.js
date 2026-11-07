@@ -135,7 +135,7 @@ const Home = () => {
           <ForecastError name={place.name} message={fc.message} onRetry={() => setAttempt((a) => a + 1)} />
         )}
         {fc.status === 'ready' && (
-          <Forecast place={place} forecast={fc.forecast} analysis={fc.analysis} nowLocal={fc.nowLocal} />
+          <Forecast place={place} forecast={fc.forecast} analysis={fc.analysis} nowLocal={fc.nowLocal} suggest />
         )}
       </div>
 

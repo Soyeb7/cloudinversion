@@ -341,6 +341,15 @@ export function analyse(forecast, nowIso, placeElevation) {
   return { ground, valleyDepth, mornings };
 }
 
+// Where a summit sits relative to the forecast cloud top. 100 m of clearance
+// counts as above: cloud tops ripple and rise as the morning warms.
+export function heightStatus(cloudTop, height) {
+  const margin = height - cloudTop;
+  if (margin >= 100) return 'above';
+  if (margin > -100) return 'edge';
+  return 'in';
+}
+
 // Is a viewpoint at `height` metres above the cloud for this morning?
 export function viewpointVerdict(m, height) {
   if (!num(height) || height <= 0) return null;
@@ -350,9 +359,12 @@ export function viewpointVerdict(m, height) {
   if (m.band.key === 'unlikely' || !m.cloudTop) {
     return { key: 'none', text: 'No cloud sea expected below you, so expect ordinary views.' };
   }
-  const margin = height - m.cloudTop;
-  if (margin >= 150) return { key: 'above', text: 'Comfortably above the forecast cloud tops.' };
-  if (margin >= 0) return { key: 'edge', text: 'Only just above the forecast cloud tops. Tops vary by 100 m or more, so you may be in and out of the cloud.' };
-  if (margin > -150) return { key: 'edge', text: 'Right around the forecast cloud tops. A higher viewpoint would be safer.' };
+  const status = heightStatus(m.cloudTop, height);
+  if (status === 'above') return { key: 'above', text: 'Above the forecast cloud tops, with some room to spare.' };
+  if (status === 'edge') {
+    return height >= m.cloudTop
+      ? { key: 'edge', text: 'Only just above the forecast cloud tops. Tops vary by 100 m or more, so you may be in and out of the cloud.' }
+      : { key: 'edge', text: 'Right around the forecast cloud tops. A higher viewpoint would be safer.' };
+  }
   return { key: 'in', text: 'Below the forecast cloud tops, so you’d likely be inside the cloud. Head higher.' };
 }

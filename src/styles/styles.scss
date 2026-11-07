@@ -1764,3 +1764,137 @@ a {
     scroll-behavior: auto !important;
   }
 }
+
+// ---------------------------------------------------------------- nearby hills
+
+.nearby {
+  margin: 4px 0 32px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+}
+
+.nearby__lead {
+  color: var(--ink-2);
+  max-width: 68ch;
+  margin-bottom: 12px;
+}
+
+.nearby__list {
+  list-style: none;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.nearby__loading {
+  display: grid;
+  gap: 8px;
+  margin: 8px 0 16px;
+}
+
+.nearby__src {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: var(--ink-3);
+  max-width: 80ch;
+}
+
+.hill {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 92px 72px auto;
+  gap: 4px 16px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  @media (max-width: 640px) {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    .hill__actions {
+      grid-column: 1 / -1;
+    }
+  }
+  &__name {
+    font-weight: 700;
+  }
+  &__status {
+    font-size: 0.88rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    &::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+  }
+  &--above &__status {
+    color: var(--good);
+  }
+  &--edge &__status {
+    color: var(--fair);
+  }
+  &--in &__status {
+    color: var(--poor);
+  }
+  &__num {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    white-space: nowrap;
+    span {
+      display: block;
+      font-weight: 400;
+      font-size: 0.8rem;
+      color: var(--ink-3);
+    }
+  }
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: flex-end;
+    @media (max-width: 640px) {
+      justify-content: flex-start;
+    }
+  }
+  &__map {
+    font-size: 0.9rem;
+    padding: 8px 2px;
+  }
+}
+
+.skeleton--row {
+  display: block;
+  height: 44px;
+  border-radius: var(--radius-sm);
+}
+
+// ---------------------------------------------------------------- safety
+
+.safety {
+  margin-top: 20px;
+  padding: 16px 18px 16px 20px;
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--fair);
+  font-size: 0.92rem;
+  color: var(--ink-2);
+  max-width: 82ch;
+  &__title {
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  ul {
+    margin: 0;
+    padding-left: 1.1em;
+    display: grid;
+    gap: 4px;
+  }
+  &--compact {
+    margin-top: 18px;
+    font-size: 0.88rem;
+  }
+}

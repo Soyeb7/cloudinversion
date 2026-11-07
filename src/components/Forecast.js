@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ProfileDiagram from './ProfileDiagram';
+import NearbyHills from './NearbyHills';
 import { clock, longDate, placeSubtitle, relativeDay, roughMetres, shortDay } from '../lib/format';
 import { contextNotes, factors, headline } from '../lib/explain';
 import { viewpointVerdict } from '../lib/inversion';
@@ -12,7 +13,7 @@ const Meter = ({ score, band }) => (
   </div>
 );
 
-const Forecast = ({ place, forecast, analysis, nowLocal, title, subtitle, viewpoints }) => {
+const Forecast = ({ place, forecast, analysis, nowLocal, title, subtitle, viewpoints, suggest = false }) => {
   const { mornings, ground } = analysis;
   const [sel, setSel] = useState(0);
   const isHill = HILL_CODES.includes(place.featureCode);
@@ -152,6 +153,19 @@ const Forecast = ({ place, forecast, analysis, nowLocal, title, subtitle, viewpo
             )}
           </div>
         </div>
+
+        {suggest && (
+          <NearbyHills
+            place={place}
+            morning={m}
+            current={vpInput}
+            onUse={(h) => {
+              setVpInput(String(h));
+              const el = document.getElementById('viewpoint');
+              if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }}
+          />
+        )}
 
         <ProfileDiagram morning={m} ground={ground} viewpoint={verdict ? vp : null} />
 

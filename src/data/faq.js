@@ -31,6 +31,10 @@ export const FAQ = [
     a: 'Places where hills rise above deep valleys or lakes: the Lake District (Latrigg, Cat Bells, Helvellyn), the Peak District (Mam Tor and Win Hill above the Hope Valley), Eryri (Moel Siabod, Yr Wyddfa), the Scottish Highlands (Ben Nevis, Conic Hill above Loch Lomond), Bannau Brycheiniog (the Sugar Loaf and Pen y Fan above the Usk valley) and the Yorkshire Dales.',
   },
   {
+    q: 'Is it safe to climb a hill in the dark to see a cloud inversion?',
+    a: 'It can be, with planning. Use public paths and open access land, follow local laws and access codes, and pick a route you know or have checked in daylight. Check the mountain forecast, tell someone your plans, take a headtorch, map and warm layers, keep away from cliff edges in fog, and turn back if conditions change. In an emergency in the UK, call 999 and ask for the Police, then Mountain Rescue.',
+  },
+  {
     q: 'What is a Brocken spectre?',
     a: 'A Brocken spectre is your own shadow cast onto cloud or fog below you, often surrounded by a rainbow-coloured ring called a glory. You need the sun low behind you and cloud in front of you, which makes a cloud inversion at sunrise one of the best times to see one.',
   },

@@ -16,6 +16,7 @@ const TOC = [
   ['conditions', 'Ideal conditions'],
   ['types', 'Two kinds of cloud sea'],
   ['height', 'How high to climb'],
+  ['safety', 'Staying safe'],
   ['method', 'How this forecast works'],
   ['limits', 'Limits'],
   ['sources', 'Sources'],
@@ -142,6 +143,29 @@ const Science = () => (
         warm layer; with valley fog it sits inside the cold pool. Cloud tops undulate and tend to rise as the morning
         warms, so aim for a viewpoint at least 50 to 100 m above the forecast top. If your summit is below the top,
         you’ll be standing inside the fog.
+      </p>
+
+      <h2 id="safety">Staying safe and legal</h2>
+      <p>
+        Seeing a cloud inversion usually means walking uphill in the dark on a cold morning, sometimes through fog. Plan
+        it like any other hill day, and be ready to turn back.
+      </p>
+      <ul>
+        <li>
+          Use public rights of way and open access land, and follow local laws and access codes, such as the Countryside
+          Code in England and Wales and the Scottish Outdoor Access Code in Scotland. Don’t cross private land, respect
+          closures and seasonal restrictions, and park considerately.
+        </li>
+        <li>Check the mountain forecast as well as this one. Wind, ice and fog on the hill can be very different from the valley.</li>
+        <li>Pick a route you know or have checked in daylight, and allow extra time in the dark.</li>
+        <li>Take a headtorch with spare batteries, a map and compass or offline map, warm layers, gloves and something to eat and drink.</li>
+        <li>Tell someone where you’re going and when you’ll be back.</li>
+        <li>Stay back from cliff edges, especially when cloud hides the drop.</li>
+        <li>In an emergency in the UK, call 999 and ask for the Police, then Mountain Rescue.</li>
+      </ul>
+      <p>
+        <a href="https://www.adventuresmart.uk/" target="_blank" rel="noopener noreferrer">AdventureSmart UK</a> has
+        more advice on getting outdoors safely.
       </p>
 
       <h2 id="method">How this forecast works</h2>
